@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('comment_reactions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('role')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('api_token', 80)->unique()->nullable()->default(null);
-            $table->timestamps();
+            $table->foreignId('user_id');
+            $table->foreignId('book_id');
+            $table->string('comment')->nullable();
+            $table->boolean('react')->nullable();
+            $table->timestamps();            
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('comment_reactions');
     }
 };
